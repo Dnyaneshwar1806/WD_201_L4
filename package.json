@@ -1,0 +1,19 @@
+{
+  "name": "level4mile",
+  "version": "1.0.0",
+  "description": "Level 4 milestone of wd 201",
+  "main": "first.js",
+  "scripts": {
+    "test": "jest",
+    "prepare": "husky install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.27.0",
+    "husky": "^8.0.2",
+    "jest": "^29.3.0",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
+  }
+}
