@@ -41,4 +41,4 @@ describe("Todolist test Suite", () => {
   test("Should check due later items", () => {
     expect(dueLater().length).toBe(2);
   });
-}) 
+})
