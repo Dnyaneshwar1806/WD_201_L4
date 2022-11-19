@@ -1,44 +1,58 @@
-const todoList = require("../todo");
-const { all, add, markAsComplete, overdue, dueLater, dueToday } = todoList();
-
-describe("Todolist test Suite", () => {
-   
+let todoList = require("../todo");
+const { all, markAsComplete, add, overdue, dueToday, dueLater } = todoList();
+describe("Todo test cases", () => {
   beforeAll(() => {
-    add(
+    const today = new Date();
+    const oneDay = 60 * 60 * 24 * 1000;
+    [
       {
-        title: "test todo",
+        title: "Complete assignment",
         completed: false,
-        dueDate: new Date().toLocaleDateString("en-CA")
-      }
-    );
-  })
-   test("Should add new todo", () => {
-     const todoItemsCount = all.length;
-    add(
+        dueDate: new Date(today.getTime() - 1 * oneDay).toLocaleDateString(
+          "en-CA"
+        ),
+      },
       {
-        title: "test todo",
+        title: "Go for shopping",
         completed: false,
-        dueDate: new Date().toLocaleDateString("en-CA")
-      }
-    );
-    expect(all.length).toBe(todoItemsCount + 1 );
+        dueDate: new Date().toLocaleDateString("en-CA"),
+      },
+      {
+        title: "Complete project",
+        completed: false,
+        dueDate: new Date(today.getTime() + 1 * oneDay).toLocaleDateString(
+          "en-CA"
+        ),
+      },
+    ].forEach(add);
   });
-  
-  test("Should mark a to do as complete", () => {
-    expect(all[0].completed).toBe(false);
+  test("Add new todo", () => {
+    expect(all.length).toEqual(3);
+
+    add({
+      title: "Take the test",
+      completed: false,
+      dueDate: new Date().toLocaleDateString("en-CA"),
+    });
+
+    expect(all.length).toEqual(4);
+  });
+
+  test("Todo mark as complete", () => {
+    expect(all[0].completed).toEqual(false);
     markAsComplete(0);
-    expect(all[0].completed).toBe(true);
+    expect(all[0].completed).toEqual(true);
   });
-  
-  test("Should check over due items", () => {
-    expect(overdue().length).toBe(1);
+
+  test("Test for overdue", () => {
+    expect(overdue().length).toEqual(1);
   });
-  
-  test("Should check due Today items ", () => {
-    expect(dueToday().length).toBe(2);
+
+  test("Test due today", () => {
+    expect(dueToday().length).toEqual(2);
   });
-  
-  test("Should check due later items", () => {
-    expect(dueLater().length).toBe(2);
+
+  test("Test for due later", () => {
+    expect(dueLater().length).toEqual(1);
   });
-})
+});
